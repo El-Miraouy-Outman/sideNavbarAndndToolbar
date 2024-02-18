@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'backOffice-front';
+  constructor() {
+    console.log("=======1===== hello ")
+  }
+
 }
