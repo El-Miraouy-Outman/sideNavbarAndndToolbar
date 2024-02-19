@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {userItems} from "./header-data-choise";
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,8 @@ import {Component, Input} from '@angular/core';
 export class HeaderComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
+
+  userItems =userItems;
   getHeadClass(): string {
     let styleClass = '';
     if(this.collapsed && this.screenWidth > 768) {

@@ -9,6 +9,8 @@ import { BodyManagementComponent } from './body-management/body-management.compo
 import {MatSidenavContainer} from "@angular/material/sidenav";
 import {MatToolbarRow} from "@angular/material/toolbar";
 import { HeaderComponent } from './header/header.component';
+import {OverlayModule} from "@angular/cdk/overlay";
+import {CdkMenuModule} from "@angular/cdk/menu";
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { HeaderComponent } from './header/header.component';
     CommonModule,
     ManagementRoutingModule,
     MatSidenavContainer,
-    MatToolbarRow
+    MatToolbarRow,
+    OverlayModule,
+    CdkMenuModule
   ]
 })
 export class ManagementModule { }
