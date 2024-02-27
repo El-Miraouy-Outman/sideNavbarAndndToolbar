@@ -1,0 +1,60 @@
+
+<!--
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+-->
+<mat-horizontal-stepper [linear]="isLinear" #stepper  class="mati">
+  <mat-step [stepControl]="form" >
+    <form [formGroup]="form" class="content-stepper">
+      <ng-template matStepLabel>Information</ng-template>
+
+      <div class="content-stepper-container">
+        <mat-form-field  >
+          <label>Nom : </label>
+          <input matInput placeholder="Entrer votre nom" required>
+        </mat-form-field >
+
+        <mat-form-field appearance="fill">
+          <label>Prénom : </label>
+          <input matInput placeholder="Entrer votre prénom" required>
+        </mat-form-field >
+
+        <mat-form-field appearance="fill">
+          <label>Email : </label>
+          <input matInput placeholder="Entrer votre email" required>
+        </mat-form-field >
+
+        <mat-form-field  appearance="fill">
+          <label>Téléphone : </label>
+          <input matInput placeholder="Entrer votre email " formControlName="email" required>
+
+        </mat-form-field >
+      </div>
+
+      <div class="btn-grp">
+        <div >
+          <button class="mat-button-previous" mat-button matStepperPrevious>Précedent</button>
+        </div>
+        <div >
+          <button class="mat-button-next" mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+
+    </form>
+
+  </mat-step>
+
+  <mat-step >
+    <ng-template matStepLabel>Validation</ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+
+     <change-password></change-password>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

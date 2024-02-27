@@ -51,6 +51,7 @@
         margin-left: 1.25rem;
 
         .head-menu-item {
+
           .head-menu-item-btn {
             font-size: 18px;
             height: 42px;
@@ -149,4 +150,9 @@
     }
   }
 }
-
+.profile {
+  .head-menu-item-user-name {
+    margin-top: 15px;
+  }
+  display: flex;
+}

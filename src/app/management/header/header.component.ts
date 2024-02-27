@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {userItems} from "./header-data-choise";
+import {LocalStorageService} from "../../services/storage/local-storage.service";
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,11 @@ export class HeaderComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
+   profile = this.localStorageService.getLastName();
+  constructor(private localStorageService :LocalStorageService) {
+  }
   userItems =userItems;
+  userName :string ="EL Miraouy ";
   getHeadClass(): string {
     let styleClass = '';
     if(this.collapsed && this.screenWidth > 768) {

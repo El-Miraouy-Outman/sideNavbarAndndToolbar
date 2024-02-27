@@ -1,1 +1,53 @@
-<p>login works!</p>
+<form [formGroup]="loginForm">
+  <div class="login-form-flex">
+    <mat-card class="login-form">
+      <mat-card-title class="title-center">
+
+        <div class="title">
+          <h1>Authentification : </h1>
+        </div>
+      </mat-card-title>
+      <mat-card-content class="card-content" >
+        <div *ngIf="loginErrors" class="login-errors">
+          <mat-error *ngFor="let err of loginErrors.email">
+            &bigstar;{{err}}
+          </mat-error>
+          <mat-error *ngFor="let err of loginErrors.password">
+            &bigstar;{{err}}
+          </mat-error>
+          <mat-error>
+            {{loginErrors.message}}
+          </mat-error>
+        </div>
+        <mat-form-field appearance="outline" class="max-height" >
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" >
+          <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="outline" class="max-height">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Password" formControlName="password"/>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-checkbox style="margin: auto" color="primary" formControlName="rememberMe" >Remember Me</mat-checkbox>
+      </mat-card-content>
+      <mat-card-actions>
+
+        <div  class="btn-grp-login">
+          <button class="mat-button-register" mat-button (click)="register()">Register</button>
+        </div>
+        <div >
+          <button class="mat-button-login" mat-button (click)="login()">Login</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>
+<div class="spinner-hover-the-back-ground" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

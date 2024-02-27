@@ -11,6 +11,7 @@ import {MatToolbarRow} from "@angular/material/toolbar";
 import { HeaderComponent } from './header/header.component';
 import {OverlayModule} from "@angular/cdk/overlay";
 import {CdkMenuModule} from "@angular/cdk/menu";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -21,13 +22,17 @@ import {CdkMenuModule} from "@angular/cdk/menu";
     BodyManagementComponent,
     HeaderComponent
   ],
+  exports: [
+    SidenavComponent
+  ],
   imports: [
     CommonModule,
     ManagementRoutingModule,
     MatSidenavContainer,
     MatToolbarRow,
     OverlayModule,
-    CdkMenuModule
+    CdkMenuModule,
+    MatProgressSpinner
   ]
 })
 export class ManagementModule { }
