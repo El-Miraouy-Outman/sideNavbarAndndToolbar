@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {User} from "../modules/User";
 import {AppConfig, CONFIG_TOKEN} from "../configuration/config";
 import {Console} from "inspector";
@@ -49,4 +49,13 @@ export class UserService {
     return this.http.get<User[]>(this.config.apiUrl+'/users')
   }
 
+  save(user: User): Observable<User> {
+    return this.http.post<User>(this.config.apiUrl+'/auth/register',user);
+  }
+  confirmedEmail(user :User){
+    return this.http.post<User>(this.config.apiUrl+'/auth/confirmedEmail',user);
+  }
+  validUser(user :User){
+    return this.http.post<User>(this.config.apiUrl+'/auth/validUser',user);
+  }
 }

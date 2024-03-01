@@ -1,5 +1,5 @@
 .content-stepper {
-    margin-top: 50px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -10,14 +10,26 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    .div-field {
+      gap: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+    }
   }
 
 }
+.validation-step {
+  margin-top: 40px;
+
+}
 .input {
-  width: 70px;
+  width: 60px;
 }
 mat-form-field {
-  width: 400px;
+  width: 350px;
 }
 .mat-button-next {
   background-color: #42B72A;
@@ -32,12 +44,13 @@ mat-form-field {
 }
 
 .btn-grp{
-  width: 400px;
+  width: 350px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
 
-  }
+}
 
 /*
 // Stapper Step-Box Hover Effect
@@ -65,8 +78,41 @@ mat-form-field {
   border-radius: 50px;
   border: 1px solid rgba(155,175,194,0.377);
   height: 40px;
+  pointer-events: none;
 }
-
+.uuid-not-valid {
+  margin-bottom: 20px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width : 300px;
+  color: #FF3528;
+  border-radius: 7px;
+  align-content: center;
+  background-color: #F2ECEC;
+  .p-uuid {
+    padding-top: 10px;
+  }
+}
+.step-tree-not-valid {
+  margin-bottom: 20px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width : 350px;
+  color: #FF3528;
+  border-radius: 7px;
+  align-content: center;
+  background-color: #F2ECEC;
+  .p-step-tree {
+    padding-top: 10px;
+  }
+}
+.span-mat {
+  padding-top: 10px;
+}
 
 // Change Stepper Step Icons Circle
 ::ng-deep .mat-primary.mat-step-header .mat-step-icon {

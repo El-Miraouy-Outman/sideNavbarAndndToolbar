@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {UserService} from "../../services/user.service";
+import {Route, Router} from "@angular/router";
+import {User} from "../../modules/User";
+import {MatStepper} from "@angular/material/stepper";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,47 +12,200 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegisterComponent {
 
-  salat = true;
-  isLinear = false;
-  // @ts-ignore
-  firstFormGroup: FormGroup;
-  // @ts-ignore
-  secondFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    console.log("==== register ===")
-  }
+  isLinear = false;
+
+  user! : User;
+  uuidIsValid = false;
+  textValidUuid= false;
+  stepTreIsValid =false;
 
   form =this.fb.group({
-
     email : ['',
       [ Validators.required,
-        Validators.maxLength(20),
+        Validators.maxLength(30),
         Validators.minLength(8)
       ]],
-    newPassWord : ['',
+    firstName : ['',
       [ Validators.required,
         Validators.maxLength(20),
-        Validators.minLength(8)
+        Validators.minLength(4)
       ]],
-    confirmNewPassWord : ['',
+    lastName : ['',
       [ Validators.required,
         Validators.maxLength(20),
+        Validators.minLength(4)
+      ]],
+    telephone : ['',
+      [ Validators.required,
+        Validators.maxLength(14),
+        Validators.minLength(4)
+      ]],
+    passWord : ['tmaneliraouy',
+      [ Validators.required,
+        Validators.maxLength(14),
+        Validators.minLength(4)
+      ]],
+    // ville : ['',
+    //   [ Validators.required,
+    //     Validators.maxLength(14),
+    //     Validators.minLength(8)
+    //   ]],
+    address : ['',
+      [ Validators.required,
+        Validators.maxLength(30),
+        Validators.minLength(4)
+      ]],
+  });
+
+  formStepTo =this.fb.group({
+    uuid : ['',
+      [ Validators.required,
+        Validators.maxLength(8),
         Validators.minLength(8)
       ]],
   });
+  formStepTree =this.fb.group({
+    passWord : ['',
+      [ Validators.required,
+        Validators.maxLength(14),
+        Validators.minLength(4)
+      ]],
+    confirmPassWord : ['',
+      [ Validators.required,
+        Validators.maxLength(14),
+        Validators.minLength(4)
+      ]],
+  });
+  constructor(private fb: FormBuilder,
+              private snackBar: MatSnackBar,
+              private userService:UserService,
+              private route:Router) {
+    this.user = new User();
+    console.log("==== register ===");
+  }
 
   ngOnInit() {
 
   }
+  registerUser(user :User){
 
-  confirm (){
+    this.userService.save(user).subscribe({
+      next: (response: any) => {
+        console.log("response :",response)
+      },
+      error: (error: any) => {
+        console.log("response : ",error)
+        if (error.status === 422) {
+          if (this.isValidationErrors(error.error)) {
+            const validationErrors = error.error as ValidationErrors;
+            const firstError = Object.values(validationErrors)[0];
+            this.snackBar.open(firstError, 'Close', {duration: 3000});
+          }
+        } else {
+          this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+        }
+      },
+    });
   }
-  get getEmail() {
-    console.log(" name ! ", this.form.controls.email.value)
-    return  this.form.controls.email.value;
+
+  stepOneNext() {
+
+
+    this.form.markAllAsTouched();
+    console.log("on est dans step One : ---> ")
+
+    if(this.form.valid) {
+      console.log("est valid  : ---> ")
+      this.user.lastName_ = this.form.value.lastName || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.firstName_ = this.form.value.firstName || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.email_ = this.form.value.email || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.address_ = this.form.value.address || ''; // Utiliser l'opérateur de coalescence nulle
+      //this.user.ville = this.form.value.ville || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.telephone_ = this.form.value.telephone || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.passWord_ = this.form.value.passWord || ''; // Utiliser l'opérateur de coalescence nulle
+
+      console.log('user information :', this.user);
+      this.registerUser(this.user);
+    }
+    console.log('user information :', this.user);
   }
-  next (){
-    console.log("-- next---",this.getEmail)
+
+  private isValidationErrors(obj: any): obj is ValidationErrors {
+    return obj && typeof obj === 'object' && !Array.isArray(obj);
+  }
+
+  validUuid() {
+
+     this.formStepTo.markAllAsTouched();
+     if(this.formStepTo.valid){
+       this.user.uuid_= this.formStepTo.value.uuid || '';
+       this.confirmedEmail(this.user);
+     }
+  }
+  confirmedEmail(user :User){
+
+      this.userService.confirmedEmail(user).subscribe({
+        next: (response: any) => {
+          console.log("response  confirmation :",response)
+          this.uuidIsValid=true;
+          this.textValidUuid=false;
+          //this.route.navigate(['/users/login']);
+        },
+        error: (error: any) => {
+          console.log("response : ",error)
+          this.textValidUuid=true;
+          if (error.status === 422) {
+            if (this.isValidationErrors(error.error)) {
+              const validationErrors = error.error as ValidationErrors;
+              const firstError = Object.values(validationErrors)[0];
+              this.snackBar.open(firstError, 'Close', {duration: 3000});
+            }
+          } else {
+            this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+          }
+        },
+      });
+    }
+
+
+  done() {
+    this.formStepTo.markAllAsTouched();
+    if(this.formStepTree.valid){
+      if(this.formStepTree.value.passWord === this.formStepTree.value.confirmPassWord){
+        this.user.passWord_=this.formStepTree.value.passWord || '';
+        this.validUser();
+      }
+      else {
+        this.stepTreIsValid=!this.stepTreIsValid;
+      }
+    }
+
+  }
+
+  private validUser() {
+    this.userService.validUser(this.user).subscribe({
+      next: (response: any) => {
+        console.log("response valid :",response)
+        // deriger vers login
+        this.route.navigateByUrl("/users/login")
+        this.stepTreIsValid=!this.stepTreIsValid;
+      },
+      error: (error: any) => {
+        console.log("response valid : ",error)
+        if (error.status === 422) {
+          if (this.isValidationErrors(error.error)) {
+            const validationErrors = error.error as ValidationErrors;
+            const firstError = Object.values(validationErrors)[0];
+            this.snackBar.open(firstError, 'Close', {duration: 3000});
+          }
+        } else {
+          this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+        }
+      },
+    });
+  }
+  login() {
+    this.route.navigate(['/users/login']);
   }
 }

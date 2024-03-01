@@ -19,7 +19,12 @@ export class AppHttpInterceptor implements HttpInterceptor {
   }
 
      intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(!request.url.includes("/authenticate")) {
+    if(
+      !request.url.includes("/authenticate")
+      && !request.url.includes("/register")
+      && !request.url.includes("/confirmedEmail")
+      && !request.url.includes("/validUser")
+    ) {
        if(!request.url.includes("/refresh")){
          console.log(' appel pour d\'autre lien sont refresh : ')
          let newRequest = request.clone({
@@ -37,7 +42,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
        }
 
     else {
-      console.log('hello  login by authentication : ')
+      console.log('  authentication : ')
       return next.handle(request)
     }
   }
@@ -51,17 +56,17 @@ export class AppHttpInterceptor implements HttpInterceptor {
        this.cpt ++;
        this.userService.getRefreshToken(refreshToken).subscribe({
          next : (res:any) =>{
-
-           console.log(" ====Votre Refresh Token   est mis a jours ===",res)
-           return of("Votre Refresh Token   est mis a jours")
            this.localStorageService.setAccessToken(res.accessToken);
+           console.log(" ====Votre Refresh Token   est mis a jours ===",res)
            console.log("new acces token :",this.localStorageService.getAccessToken());
+           return of("Votre Refresh Token   est mis a jours")
          },
          error : err => {
            console.log(error.error);
            this.localStorageService.setIsUserLoggedIn(false);
            this.localStorageService.removeToken()
            console.log("!!!!!revoke token is success ")
+
          }
        });
        return of("Attempting to refrech token ");

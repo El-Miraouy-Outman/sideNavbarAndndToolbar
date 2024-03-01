@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit{
 
   email = '';
   passWord = '';
-  loginErrors: any = [];
+
+  isLoginErrors = false;
   isLoading = false;
   isLoginIn: boolean = false ;
 
@@ -44,11 +45,11 @@ export class LoginComponent implements OnInit{
        next: (res:any) => {
          console.log( "outman ====",res)
            this.loadProfile(res);
-         this.router.navigate(['/users']);
+         this.router.navigate(['/management']);
        },
        error: (error) => {
          console.log(error.error);
-         this.loginErrors = error.error;
+         this.isLoginErrors = true;
          this.isLoading = false;
          this.localStorageService.setIsUserLoggedIn(false);
          this.localStorageService.removeToken();
@@ -74,7 +75,7 @@ export class LoginComponent implements OnInit{
   }
 
   register() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/users/register']);
   }
 
   private loadProfile(res: any) {
@@ -88,7 +89,7 @@ export class LoginComponent implements OnInit{
       this.localStorageService.setEmail(res.email)
       this.localStorageService.setAccessToken(res.accessToken);
       this.localStorageService.setRefreshToken(res.refreshToken);
-      this.loginErrors = [];
+
       this.isLoading = false;
       //console.log("CONTENU ... ",res.roles)
       if (res.roles.includes("ADMIN")) {

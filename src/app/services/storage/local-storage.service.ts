@@ -10,7 +10,7 @@ export class LocalStorageService {
 
   setLastName(name: string) {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('lastName', name);
+      localStorage.setItem('laName', name);
     }
   }
   getLastName() {

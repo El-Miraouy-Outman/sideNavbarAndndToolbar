@@ -8,17 +8,14 @@
         </div>
       </mat-card-title>
       <mat-card-content class="card-content" >
-        <div *ngIf="loginErrors" class="login-errors">
-          <mat-error *ngFor="let err of loginErrors.email">
-            &bigstar;{{err}}
-          </mat-error>
-          <mat-error *ngFor="let err of loginErrors.password">
-            &bigstar;{{err}}
-          </mat-error>
-          <mat-error>
-            {{loginErrors.message}}
-          </mat-error>
-        </div>
+
+
+          <div *ngIf="isLoginErrors" class="login-errors">
+
+            <p class="p-login-errors">votre email ou mot de passe invalide  </p>
+          </div>
+
+
         <mat-form-field appearance="outline" class="max-height" >
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" formControlName="email" >

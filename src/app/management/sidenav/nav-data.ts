@@ -1,37 +1,39 @@
 export const navbarData = [
-    {
-        routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
-    },
-    {
-        routeLink: 'products',
-        icon: 'fal fa-box-open',
-        label: 'Products'
-    },
-    {
-        routeLink: 'statistics',
-        icon: 'fal fa-chart-bar',
-        label: 'Statistics'
-    },
-    {
-        routeLink: 'coupens',
-        icon: 'fal fa-tags',
-        label: 'Coupens'
-    },
-    {
-        routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages'
-    },
-    {
-        routeLink: 'media',
-        icon: 'fal fa-camera',
-        label: 'Media'
-    },
-    {
-        routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings'
-    },
+  {
+    routeLink: 'dashboard',
+    icon: 'fal fa-home',
+    label: 'Dashboard'
+  },
+  {
+    routeLink: 'tickets',
+    icon: 'fal fa-file',
+    label: 'Gestion Tickets'
+  },
+  {
+    routeLink: 'utilisateurs',
+    icon: 'fal fa-box-open',
+    label: 'Gestion Utilisateurs'
+  },
+  {
+    routeLink: 'clients',
+    icon: 'fal fa-chart-bar',
+    label: 'Gestion Clients'
+  },
+  {
+    routeLink: 'dispositifs',
+    icon: 'fal fa-tags',
+    label: 'Gestion Dispositifs'
+  },
+
+  {
+    routeLink: 'livraison',
+    icon: 'fal fa-camera',
+    label: 'Gestion Livraison'
+  },
+  {
+    routeLink: 'settings',
+    icon: 'fal fa-cog',
+    label: 'Settings'
+  },
+
 ];

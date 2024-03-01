@@ -8,7 +8,7 @@ import { NavbarvideComponent } from './navbarvide/navbarvide.component';
 import { RegisterComponent } from './register/register.component';
 import { BODYComponent } from './body/body.component';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from "@angular/material/stepper";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatFormFieldModule, MatPrefix, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton, MatIconButton} from "@angular/material/button";
@@ -30,6 +30,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   imports: [
     CommonModule,
+    FormsModule,
     UserRoutingModule,
     NgOptimizedImage,
     MatStep,

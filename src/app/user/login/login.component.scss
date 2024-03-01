@@ -78,4 +78,18 @@
 
 
 
+.login-errors {
+  margin-bottom: 20px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width : 300px;
+  color: #FF3528;
+  border-radius: 7px;
+  align-content: center;
+  //background-color: #F2ECEC;
+  .p-login-errors {
 
+  }
+}
