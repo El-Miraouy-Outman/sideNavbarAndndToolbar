@@ -57,10 +57,10 @@
           </mat-form-field >
 
           <mat-form-field  appearance="fill">
-            <label>PassWord : </label>
-            <input matInput placeholder="Entrer votre passWord"  formControlName="passWord" name="passWord"  required>
-            <mat-error *ngIf="form.controls['passWord'].hasError('required')">
-              Mot de passe  est <strong>Obligatoire</strong>
+            <label>Ville : </label>
+            <input matInput placeholder="Entrer la ville"  formControlName="ville" name="ville"  required>
+            <mat-error *ngIf="form.controls['ville'].hasError('required')">
+              Ville  est <strong>Obligatoire</strong>
             </mat-error>
           </mat-form-field >
         </div>
@@ -78,7 +78,7 @@
   </mat-step>
   <mat-step  >
     <form [formGroup]="formStepTo" class="content-stepper">
-    <ng-template matStepLabel>Information</ng-template>
+    <ng-template matStepLabel>Vérification</ng-template>
 
     <div class="content-stepper-container">
       <div *ngIf="textValidUuid" class="uuid-not-valid">

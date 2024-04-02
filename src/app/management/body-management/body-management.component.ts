@@ -17,4 +17,6 @@ export class BodyManagementComponent {
     }
     return styleClass;
   }
+
+
 }

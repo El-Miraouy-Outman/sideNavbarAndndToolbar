@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../services/user.service";
-import {Route, Router} from "@angular/router";
-import {User} from "../../modules/User";
-import {MatStepper} from "@angular/material/stepper";
+import {Router} from "@angular/router";
+import {User} from "../../models/User";
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -19,6 +19,7 @@ export class RegisterComponent {
   uuidIsValid = false;
   textValidUuid= false;
   stepTreIsValid =false;
+
 
   form =this.fb.group({
     email : ['',
@@ -46,11 +47,11 @@ export class RegisterComponent {
         Validators.maxLength(14),
         Validators.minLength(4)
       ]],
-    // ville : ['',
-    //   [ Validators.required,
-    //     Validators.maxLength(14),
-    //     Validators.minLength(8)
-    //   ]],
+     ville : ['',
+      [ Validators.required,
+         Validators.maxLength(14),
+        Validators.minLength(4)
+       ]],
     address : ['',
       [ Validators.required,
         Validators.maxLength(30),
@@ -103,7 +104,7 @@ export class RegisterComponent {
             this.snackBar.open(firstError, 'Close', {duration: 3000});
           }
         } else {
-          this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+          this.snackBar.open('Une erreur est produite. Veuillez réessayer plus tard.', 'Close', {duration: 3000});
         }
       },
     });
@@ -117,13 +118,13 @@ export class RegisterComponent {
 
     if(this.form.valid) {
       console.log("est valid  : ---> ")
-      this.user.lastName_ = this.form.value.lastName || ''; // Utiliser l'opérateur de coalescence nulle
-      this.user.firstName_ = this.form.value.firstName || ''; // Utiliser l'opérateur de coalescence nulle
-      this.user.email_ = this.form.value.email || ''; // Utiliser l'opérateur de coalescence nulle
-      this.user.address_ = this.form.value.address || ''; // Utiliser l'opérateur de coalescence nulle
-      //this.user.ville = this.form.value.ville || ''; // Utiliser l'opérateur de coalescence nulle
-      this.user.telephone_ = this.form.value.telephone || ''; // Utiliser l'opérateur de coalescence nulle
-      this.user.passWord_ = this.form.value.passWord || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.lastName_ = this.form.value.lastName || '';
+      this.user.firstName_ = this.form.value.firstName || '';
+      this.user.email_ = this.form.value.email || '';
+      this.user.address_ = this.form.value.address || '';
+      //this.user.ville = this.form.value.ville || '';
+      this.user.telephone_ = this.form.value.telephone || '';
+      this.user.passWord_ = this.form.value.passWord || '';
 
       console.log('user information :', this.user);
       this.registerUser(this.user);
@@ -150,7 +151,7 @@ export class RegisterComponent {
           console.log("response  confirmation :",response)
           this.uuidIsValid=true;
           this.textValidUuid=false;
-          //this.route.navigate(['/users/login']);
+          //this.route.navigate(['/user/login']);
         },
         error: (error: any) => {
           console.log("response : ",error)
@@ -162,7 +163,7 @@ export class RegisterComponent {
               this.snackBar.open(firstError, 'Close', {duration: 3000});
             }
           } else {
-            this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+            this.snackBar.open('Une erreur s\'est produite. Veuillez réessayer plus tard.', 'Close', {duration: 3000});
           }
         },
       });
@@ -188,7 +189,7 @@ export class RegisterComponent {
       next: (response: any) => {
         console.log("response valid :",response)
         // deriger vers login
-        this.route.navigateByUrl("/users/login")
+        this.route.navigateByUrl("/user/login")
         this.stepTreIsValid=!this.stepTreIsValid;
       },
       error: (error: any) => {
@@ -200,12 +201,12 @@ export class RegisterComponent {
             this.snackBar.open(firstError, 'Close', {duration: 3000});
           }
         } else {
-          this.snackBar.open('An error occurred. Please try again later.', 'Close', {duration: 3000});
+          this.snackBar.open('Une erreur s\'est produite. Veuillez réessayer plus tard.', 'Close', {duration: 3000});
         }
       },
     });
   }
   login() {
-    this.route.navigate(['/users/login']);
+    this.route.navigate(['/user/login']);
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Observable} from "rxjs";
-import {User} from "./modules/User";
+import {User} from "./models/User";
 import {UserService} from "./services/user.service";
 import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 

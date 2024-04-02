@@ -9,12 +9,10 @@
       </mat-card-title>
       <mat-card-content class="card-content" >
 
-
           <div *ngIf="isLoginErrors" class="login-errors">
 
             <p class="p-login-errors">votre email ou mot de passe invalide  </p>
           </div>
-
 
         <mat-form-field appearance="outline" class="max-height" >
           <mat-label>Email</mat-label>
@@ -33,8 +31,11 @@
         </mat-form-field>
         <mat-checkbox style="margin: auto" color="primary" formControlName="rememberMe" >Remember Me</mat-checkbox>
       </mat-card-content>
+      <div class="forget-change">
+        <a class="a-change" routerLink="/user/changePassWord">Changer mot de passe </a>
+        <a class="a-forget" routerLink="/user/forgetPassWord"> Mot de passe oublier</a>
+      </div>
       <mat-card-actions>
-
         <div  class="btn-grp-login">
           <button class="mat-button-register" mat-button (click)="register()">Register</button>
         </div>

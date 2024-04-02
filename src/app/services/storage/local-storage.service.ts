@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { User } from "../../modules/User";
+import { User } from "../../models/User";
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class LocalStorageService {
 
   setLastName(name: string) {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('laName', name);
+      localStorage.setItem('lastName', name);
     }
   }
   getLastName() {
@@ -96,6 +96,11 @@ export class LocalStorageService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+    }
+  }
+  removeUser() {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear()
     }
   }
 

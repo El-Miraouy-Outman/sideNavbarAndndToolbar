@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {catchError, Observable} from "rxjs";
-import {User} from "../modules/User";
+import {User} from "../models/User";
 import {AppConfig, CONFIG_TOKEN} from "../configuration/config";
 import {Console} from "inspector";
 import {LocalStorageService} from "./storage/local-storage.service";
@@ -48,12 +48,20 @@ export class UserService {
 
     return this.http.get<User[]>(this.config.apiUrl+'/users')
   }
-
+  logout() {
+    return this.http.get(this.config.apiUrl+'/auth/logout')
+  }
   save(user: User): Observable<User> {
     return this.http.post<User>(this.config.apiUrl+'/auth/register',user);
   }
+  sendUuidToUser(user: User): Observable<User> {
+    return this.http.post<User>(this.config.apiUrl+'/auth/sendUuidToUser',user);
+  }
   confirmedEmail(user :User){
     return this.http.post<User>(this.config.apiUrl+'/auth/confirmedEmail',user);
+  }
+  changePassWord(user :User){
+    return this.http.post<User>(this.config.apiUrl+'/auth/changePassWord',user);
   }
   validUser(user :User){
     return this.http.post<User>(this.config.apiUrl+'/auth/validUser',user);

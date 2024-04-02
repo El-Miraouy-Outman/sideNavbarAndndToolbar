@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Route, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {LocalStorageService} from "../../services/storage/local-storage.service";
@@ -62,20 +62,10 @@ export class LoginComponent implements OnInit{
  }
 
 
-  getAllUsers(){
-    this.userService.fetchAllUser().subscribe({
-      next :data => {
-        console.log("_____data ",data)
-      },
-      error : err => {
 
-        console.log("____error ",err);
-      }
-    })
-  }
 
   register() {
-    this.router.navigate(['/users/register']);
+    this.router.navigate(['/user/register']);
   }
 
   private loadProfile(res: any) {
@@ -87,9 +77,10 @@ export class LoginComponent implements OnInit{
       this.localStorageService.setFirstName(res.firstName)
       this.localStorageService.setLastName(res.lastName)
       this.localStorageService.setEmail(res.email)
+      this.localStorageService.setId(res.id)
       this.localStorageService.setAccessToken(res.accessToken);
       this.localStorageService.setRefreshToken(res.refreshToken);
-
+      console.log('usr name :',this.localStorageService.getLastName())
       this.isLoading = false;
       //console.log("CONTENU ... ",res.roles)
       if (res.roles.includes("ADMIN")) {

@@ -17,42 +17,47 @@ import {MatCard, MatCardActions, MatCardContent, MatCardTitle} from "@angular/ma
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 
 @NgModule({
-  declarations: [
-    UserComponent,
-    LoginComponent,
-    NavbarvideComponent,
-    RegisterComponent,
-    BODYComponent,
-    ChangePasswordComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    UserRoutingModule,
-    NgOptimizedImage,
-    MatStep,
-    ReactiveFormsModule,
-    MatFormField,
-    MatStepper,
-    MatInput,
-    MatStepLabel,
-    MatButton,
-    MatStepperNext,
-    MatStepperPrevious,
-    MatIconButton,
-    MatPrefix,
-    MatSuffix,
-    MatCardActions,
-    MatCardTitle,
-    MatCardContent,
-    MatCard,
-    MatFormFieldModule,
-    MatIcon,
-    MatCheckbox,
-    MatProgressSpinner
-  ]
+    declarations: [
+        UserComponent,
+        LoginComponent,
+        NavbarvideComponent,
+        RegisterComponent,
+        BODYComponent,
+        ChangePasswordComponent,
+        ForgetPasswordComponent
+    ],
+    exports: [
+        RegisterComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        UserRoutingModule,
+        NgOptimizedImage,
+        MatStep,
+        ReactiveFormsModule,
+        MatFormField,
+        MatStepper,
+        MatInput,
+        MatStepLabel,
+        MatButton,
+        MatStepperNext,
+        MatStepperPrevious,
+        MatIconButton,
+        MatPrefix,
+        MatSuffix,
+        MatCardActions,
+        MatCardTitle,
+        MatCardContent,
+        MatCard,
+        MatFormFieldModule,
+        MatIcon,
+        MatCheckbox,
+        MatProgressSpinner
+    ]
 })
 export class UserModule { }

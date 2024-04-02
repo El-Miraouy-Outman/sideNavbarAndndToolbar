@@ -63,17 +63,30 @@
 }
 
 .mat-button-register {
-  background-color: #FA37A0;
+  background-color: #bdbdbd;
   width: 150px;
 
   border-radius: 37px;
 }
 .btn-grp-login{
+  margin-top: 10px;
   width: 400px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+}
+.forget-change{
+  width: 450px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  .a-change {
+    padding-left: 20px;
+  }
+  .a-forget {
+
+  }
 }
 
 

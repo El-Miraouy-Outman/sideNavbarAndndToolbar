@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {UserComponent} from "./user.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
-import {ManagementComponent} from "../management/management.component";
-import {DashbordComponent} from "../management/dashbord/dashbord.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
 
 const routes: Routes = [
   {
-    path: 'users', component: UserComponent,
+    path: 'user', component: UserComponent,
     children: [
       {
         path: 'login', component: LoginComponent
@@ -18,11 +17,14 @@ const routes: Routes = [
         path: 'register', component: RegisterComponent
       },
       {
-        path: 'change', component: ChangePasswordComponent
+        path: 'changePassWord', component: ChangePasswordComponent
       },
       {
-        path: '', component : RegisterComponent
-      }
+        path: 'forgetPassWord', component: ForgetPasswordComponent
+      },
+
+      {
+        path: "", redirectTo: "login", pathMatch: "full"      }
     ]
   },
   {

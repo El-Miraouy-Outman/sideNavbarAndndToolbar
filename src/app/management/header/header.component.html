@@ -6,7 +6,6 @@
     <div class="head-content-right">
       <div class="head-menu">
 
-
         <div class="head-menu-item">
           <button class="head-menu-item-btn ripple">
             <i class="far fa-bell menu-icon"></i>
@@ -18,10 +17,10 @@
          <div class="head-user-avatar" [cdkMenuTriggerFor]="userOverlay">
            <div class="profile">
              <div class="head-menu-item-user-name">
-               {{profile}}
+               <strong>{{profile}} </strong>
              </div>
              <div>
-               <img src="assets/flags/user_image.jpeg" alt="user" class="user-avatar">
+               <img src="../../../assets/flags/user_image1.jpeg" alt="user" class="user-avatar">
                <div class="circle-indicator pulse" ></div>
              </div>
            </div>
@@ -35,7 +34,7 @@
   <div class="overlay overlay-user overlay-fall" cdkMenu>
     <ul>
       <li *ngFor="let item of userItems">
-        <a>
+        <a (click)="logout()">
           <i class="icon" [ngClass]="item.icon"></i>
           <span>{{item.label}}</span>
         </a>

@@ -10,8 +10,7 @@ import {Injectable} from "@angular/core";
 import {catchError, Observable, of, throwError} from "rxjs";
 import {UserService} from "../services/user.service";
 import {LocalStorageService} from "../services/storage/local-storage.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {throws} from "assert";
+
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
    cpt =0;
@@ -24,12 +23,15 @@ export class AppHttpInterceptor implements HttpInterceptor {
       && !request.url.includes("/register")
       && !request.url.includes("/confirmedEmail")
       && !request.url.includes("/validUser")
+      && !request.url.includes("/sendUuidToUser")
+      && !request.url.includes("/changePassWord")
     ) {
        if(!request.url.includes("/refresh")){
          console.log(' appel pour d\'autre lien sont refresh : ')
          let newRequest = request.clone({
            headers: request.headers.set('Authorization', 'Bearer ' + this.localStorageService.getAccessToken())
          })
+         console.log("accessToken :",this.localStorageService.getAccessToken())
          return next.handle(newRequest).pipe(catchError(x => this.handleError(x)));
        }
        else {
@@ -48,36 +50,31 @@ export class AppHttpInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse) :Observable<any>{
-    console.log("on a un erreur : .....?")
-    const refreshToken=this.localStorageService.getRefreshToken();
-    console.log('refresh token quond va envoyez est : ',refreshToken)
-     if(error.status === 401 && this.cpt !=1){
-       console.log("erreur est 401  : .........")
-       this.cpt ++;
-       this.userService.getRefreshToken(refreshToken).subscribe({
-         next : (res:any) =>{
-           this.localStorageService.setAccessToken(res.accessToken);
-           console.log(" ====Votre Refresh Token   est mis a jours ===",res)
-           console.log("new acces token :",this.localStorageService.getAccessToken());
-           return of("Votre Refresh Token   est mis a jours")
-         },
-         error : err => {
-           console.log(error.error);
-           this.localStorageService.setIsUserLoggedIn(false);
-           this.localStorageService.removeToken()
-           console.log("!!!!!revoke token is success ")
 
-         }
-       });
-       return of("Attempting to refrech token ");
-     }
-     else {
-       this.cpt=0;
-       this.localStorageService.setIsUserLoggedIn(false);
-       this.localStorageService.removeToken()
-       return throwError(()=> new Error("Non Authentication erreur "))
-     }
+    console.log("on a un erreur : .....? : ",error.status)
+    const refreshToken=this.localStorageService.getRefreshToken();
+      if(error.status === 403 ){
+
+        this.userService.getRefreshToken(refreshToken).subscribe({
+          next : (res:any) =>{
+            this.localStorageService.setAccessToken(res.accessToken);
+            return of("Votre Refresh Token   est mis a jours")
+          },
+          error : err => {
+            this.localStorageService.setIsUserLoggedIn(false);
+            this.localStorageService.removeToken()
+          }
+        });
+        return of("Attempting to refrech token ");
+      }
+      else {
+        this.cpt=0;
+        return throwError(()=> new Error("Non Authentication erreur "))
+      }
+
+
   }
+
 
 
 }

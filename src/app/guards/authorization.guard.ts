@@ -10,7 +10,7 @@ export const authorizationGuard: CanActivateFn = () => {
      console.log("is login ",auth.isUserLoggedIn())
      console.log("LOCAL ROLES ",auth.getRoles())
 
-     router.navigateByUrl("/users/login")
+     router.navigateByUrl("/user/login")
      return false
    }
   return true;

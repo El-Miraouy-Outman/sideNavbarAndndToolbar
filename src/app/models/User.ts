@@ -10,6 +10,7 @@ export class User {
   private refreshToken!: string;
   private roles!: string[];
   private passWord! :string;
+  private newPassWord! :string;
   private uuid! :string;
 
   get id_(): number {
@@ -40,6 +41,13 @@ export class User {
 
   set passWord_(value: string) {
     this.passWord = value;
+  }
+  get newPassWord_(): string {
+    return this.newPassWord;
+  }
+
+  set newPassWord_(value: string) {
+    this.newPassWord = value;
   }
 
   get lastName_(): string {
