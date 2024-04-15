@@ -22,9 +22,9 @@ const routes: Routes = [
       {
         path: 'forgetPassWord', component: ForgetPasswordComponent
       },
-
       {
-        path: "", redirectTo: "login", pathMatch: "full"      }
+        path: "", redirectTo: "user", pathMatch: "full"
+      }
     ]
   },
   {

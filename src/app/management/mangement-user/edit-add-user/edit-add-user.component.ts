@@ -28,7 +28,7 @@ export class EditAddUserComponent {
 
       this.userForm = new FormGroup({
        /* id: new FormControl(this.user.id_),
-        email: new FormControl(this.user.email_),
+        email: new FormControl(this.user.email),
         telephone: new FormControl(this.user.telephone_),
         address: new FormControl(this.user.address_),
         firstName: new FormControl(this.user.firstName_),

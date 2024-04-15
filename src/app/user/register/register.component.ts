@@ -118,13 +118,13 @@ export class RegisterComponent {
 
     if(this.form.valid) {
       console.log("est valid  : ---> ")
-      this.user.lastName_ = this.form.value.lastName || '';
-      this.user.firstName_ = this.form.value.firstName || '';
-      this.user.email_ = this.form.value.email || '';
-      this.user.address_ = this.form.value.address || '';
+      this.user.lastName = this.form.value.lastName || '';
+      this.user.firstName = this.form.value.firstName || '';
+      this.user.email = this.form.value.email || '';
+      this.user.address = this.form.value.address || '';
       //this.user.ville = this.form.value.ville || '';
-      this.user.telephone_ = this.form.value.telephone || '';
-      this.user.passWord_ = this.form.value.passWord || '';
+      this.user.telephone = this.form.value.telephone || '';
+      this.user.passWord = this.form.value.passWord || '';
 
       console.log('user information :', this.user);
       this.registerUser(this.user);
@@ -140,7 +140,7 @@ export class RegisterComponent {
 
      this.formStepTo.markAllAsTouched();
      if(this.formStepTo.valid){
-       this.user.uuid_= this.formStepTo.value.uuid || '';
+       this.user.uuid= this.formStepTo.value.uuid || '';
        this.confirmedEmail(this.user);
      }
   }
@@ -174,7 +174,7 @@ export class RegisterComponent {
     this.formStepTo.markAllAsTouched();
     if(this.formStepTree.valid){
       if(this.formStepTree.value.passWord === this.formStepTree.value.confirmPassWord){
-        this.user.passWord_=this.formStepTree.value.passWord || '';
+        this.user.passWord=this.formStepTree.value.passWord || '';
         this.validUser();
       }
       else {

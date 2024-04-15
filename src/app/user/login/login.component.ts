@@ -83,12 +83,10 @@ export class LoginComponent implements OnInit{
       console.log('usr name :',this.localStorageService.getLastName())
       this.isLoading = false;
       //console.log("CONTENU ... ",res.roles)
-      if (res.roles.includes("ADMIN")) {
-        //console.log("Les rôles contiennent 'SUPPORT'");
+      if (res.roles.includes("AD")) {
         this.localStorageService.setIsAdmin(true);
-        //console.log("Maintenant, c'est un admin :", this.localStorageService.isAdmin());
       } else {
-        //console.log("Les rôles ne contiennent pas 'SUPPORT'");
+        this.localStorageService.setIsAdmin(false);
       }
 
     }

@@ -74,15 +74,13 @@
           <div class="div-field">
             <label class="affected"> <strong>Affecter :  </strong></label>
             <mat-form-field appearance="outline" >
-              <mat-select formControlName="associateUserName" placeholder="Affecter a un support" multiple>
+              <mat-select formControlName="associateUserName" placeholder="Affecter a un support" >
                 <mat-option  >None</mat-option>
                 <mat-optgroup label="Support Technique :">
-                  <mat-option value="m1">T1</mat-option>
-                  <mat-option value="m2">T2</mat-option>
+                  <mat-option *ngFor="let user of supportsTechnic" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
                 </mat-optgroup>
                 <mat-optgroup label="Support Fonctionnel :">
-                  <mat-option value="m1">F1</mat-option>
-                  <mat-option value="m2">F2</mat-option>
+                  <mat-option *ngFor="let user of supportsFunctional" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
                 </mat-optgroup>
 
               </mat-select>
@@ -181,9 +179,22 @@
       </div>
     </div>
   </mat-card-content>
-    <div class="btn-resolution">
-      <button class="mat-button-resolution" mat-button (click)="resolution()">Résolue</button>
+  <mat-card-footer>
+    <div class="content-resolution">
+      <div class="text-resolution">
+        <mat-form-field class="field-text" appearance="outline" >
+                <textarea class="text" matInput
+                          cdkTextareaAutosize [cdkAutosizeMaxRows]="7"
+                          [cdkAutosizeMinRows]="2" [(ngModel)]="finalSolution">
+        </textarea>
+        </mat-form-field>
+      </div>
+      <div class="div-btn-resolution">
+        <button class="mat-button-resolution" mat-button (click)="resolution()">Résolue</button>
+      </div>
     </div>
+  </mat-card-footer>
+
 </mat-card>
 <ng-template #noComments>
   <strong>Aucun Commentaire pour cette ticket .</strong>

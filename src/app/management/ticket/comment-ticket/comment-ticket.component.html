@@ -13,16 +13,12 @@
           <mat-form-field appearance="outline" class="form-fields">
             <mat-label>utilisateur à taquer</mat-label>
             <mat-select formControlName="userNotifiedId" placeholder="selectinner utilisateur" multiple>
-              <mat-option  >None</mat-option>
               <mat-optgroup label="Support Technique :">
-                <mat-option value="m1">T1</mat-option>
-                <mat-option value="m2">T2</mat-option>
+                <mat-option *ngFor="let user of supportsTechnic" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
               </mat-optgroup>
               <mat-optgroup label="Support Fonctionnel :">
-                <mat-option value="m1">F1</mat-option>
-                <mat-option value="m2">F2</mat-option>
+                <mat-option *ngFor="let user of supportsFunctional" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
               </mat-optgroup>
-
             </mat-select>
           </mat-form-field>
 

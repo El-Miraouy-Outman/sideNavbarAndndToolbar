@@ -26,21 +26,10 @@ export class TicketService {
     return this.http.delete(`${this.appConfig.apiUrl}/tickets?id=${id}`)
   }
 
-  getHouseByCustomer( value:string):Observable<Customer>{
-    const customer = new Customer();
-    const startsWithLetterOrNumber = /^[a-zA-Z]/.test(value);
-    if (startsWithLetterOrNumber) {
-      customer.email_=value
-    } else {
-      customer.phone_number_=value;
-    }
-    let params = new HttpParams();
-    params=params.set('mail',customer.email_);
-    params=params.set('phone_number',customer.phone_number_)
 
-    return this.http.get<Customer>(`${this.appConfig.apiUrl}/customers/findHouseCustomer`,{params : params});
+  resolution(ticket :Ticket):Observable<Ticket>{
+    return this.http.put<Ticket>(`${this.appConfig.apiUrl}/customers/findHouseCustomer`,ticket)
   }
-
 
 
 }

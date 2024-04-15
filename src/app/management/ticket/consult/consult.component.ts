@@ -13,6 +13,9 @@ import {LocalStorageService} from "../../../services/storage/local-storage.servi
 import {statusTicket} from "../../../models/status-ticket";
 import { priorityTicket} from "../../../models/priorityTicket";
 import {StylesService} from "../../../services/stylesService";
+import {UserService} from "../../../services/user.service";
+import {User} from "../../../models/User";
+import {CustomerService} from "../../../services/customer.service";
 
 
 @Component({
@@ -33,6 +36,10 @@ export class ConsultComponent implements OnInit{
   updateIsActive =false;
   comments :CommentTicket[]=[];
   customer! : Customer;
+  users! :User[];
+  supportsFunctional! :User[];
+  supportsTechnic! :User[];
+  finalSolution! : string;
 
   constructor(private fb : FormBuilder,
               private dialog:MatDialog,
@@ -42,11 +49,14 @@ export class ConsultComponent implements OnInit{
               private toastService:ToastService,
               private commentService :CommentService,
               private localService:LocalStorageService,
-              private stylesService : StylesService) {
+              private stylesService : StylesService,
+              private userService:UserService,
+              private customerService:CustomerService) {
     this.ticket=new Ticket();
 
   }
   ngOnInit(): void {
+    this.getAllUsers();
     console.log('variable de teste  :',this.isAdd)
     this.route.queryParams.subscribe(params => {
       if(history){
@@ -102,25 +112,26 @@ export class ConsultComponent implements OnInit{
     )
  }
 
-  openPopupComment(dialog :MatDialog,idTicket:number){
+  openPopupComment(dialog :MatDialog,idTicket:number,supportsF :User[],supportsT:User[]){
     var _popup=dialog.open(CommentTicketComponent,{
-      width:'30%',
-     // enterAnimationDuration :'300ms',
-      //exitAnimationDuration : '500ms',
+      width:"500px",
+      enterAnimationDuration :'200ms',
+      exitAnimationDuration : '300ms',
       data : {
-        ticketId : idTicket
+        ticketId : idTicket,
+        supportsFunctional :supportsF,
+        supportsTechnic :supportsT,
       }
     });
+    console.log('user fon a envoyer :',this.supportsFunctional)
     return _popup.afterClosed()
   }
   addComment(){
-    this.openPopupComment(this.dialog,this.ticket.id).subscribe(item=>{
-      console.log("after close");
-      console.log(item)
+    this.openPopupComment(this.dialog,this.ticket.id,this.supportsFunctional,this.supportsTechnic).subscribe(item=>{
+      console.log(" after close : ",item)
       if(item){
         this.commentService.save(item).subscribe({
           next :res =>{
-            console.log("commentaire ajouter :",res)
             this.toastService.showSuccess("Votre commentaire est ajouter avec succes ");
             this.getCommentByTicket(this.ticket.id);
             },
@@ -132,12 +143,11 @@ export class ConsultComponent implements OnInit{
     });
 
   }
-
   getCustomer(){
     const clientValue = this.form.controls.client.value;
     this.form.controls.typeDevice.patchValue('Type Inconnu');
     if (typeof clientValue === 'string') {
-      this.ticketService.getHouseByCustomer(clientValue).subscribe(
+      this.customerService.getHouseByCustomer(clientValue).subscribe(
         {
           next: res => {
              this.housesNames=res.housesNames;
@@ -177,7 +187,6 @@ export class ConsultComponent implements OnInit{
   }
   enableAllControls(): void {
     this.iterateControls(control => control.enable());
-
   }
 
   disableAllControls(): void {
@@ -215,8 +224,32 @@ export class ConsultComponent implements OnInit{
       })
     }
   }
+  getAllUsers(){
 
-  resolution(){  }
+    this.userService.fetchAllUser()
+      .subscribe({
+          next :data => {
+            this.users = data;
+            if (this.users && this.users.length > 0) {
+              this.supportsFunctional = this.users.filter(user => user.roles && user.roles.includes("F"));
+              this.supportsTechnic = this.users.filter(user => user.roles && user.roles.includes("T"));
+            } else {
+              this.toastService.showInfo("Aucun utilisateur n'a été récupéré.");
+            }
+          },
+          error : err => {
+            this.toastService.showError(err.message);
+          }
+        }
+      )
+  }
+  resolution(){
+    this.form.controls.finalSolution.patchValue(this.finalSolution);
+    this.ticket.finalSolution=this.finalSolution;
+    console.log("new ticket :",)
+    //this.ticketService.resolution()
+
+  }
 
 
   form =this.fb.group({

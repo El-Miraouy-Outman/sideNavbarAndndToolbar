@@ -3,6 +3,7 @@ import {CommentTicket} from "../../../models/CommentTicket";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import {LocalStorageService} from "../../../services/storage/local-storage.service";
+import {User} from "../../../models/User";
 
 @Component({
   selector: 'app-comment-ticket',
@@ -11,17 +12,25 @@ import {LocalStorageService} from "../../../services/storage/local-storage.servi
 })
 export class CommentTicketComponent implements OnInit{
   comment! :CommentTicket;
+  supportsFunctional! :User[];
+  supportsTechnic! :User[];
   ngOnInit(): void {
     this.form.patchValue({
       userId : parseInt(this.localStorageService.getId() || ''),
       ticketId : this.data.ticketId
     });
+
+
   }
   constructor(@Inject(MAT_DIALOG_DATA) private data:any,
               private dialogRef:MatDialogRef<CommentTicketComponent>,
               private fb:FormBuilder,
               private localStorageService:LocalStorageService,
-              ) {}
+              ) {
+    this.supportsTechnic=this.data.supportsTechnic;
+    this.supportsFunctional=this.data.supportsFunctional;
+    console.log("user functionnal :",this.supportsFunctional)
+  }
   close(){
     this.dialogRef.close();
   }
@@ -63,5 +72,6 @@ export class CommentTicketComponent implements OnInit{
         Validators.minLength(1)
       ]],
   });
+  protected readonly alert = alert;
 }
 

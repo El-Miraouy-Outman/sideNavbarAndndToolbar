@@ -8,11 +8,11 @@ const routes: Routes = [
     "path": "management", loadChildren: () => import('./management/management.module').then(m => m.ManagementModule)
   },
 
-  {"path" : "users" ,loadChildren : () => import('./user/user.module').then(m => m.UserModule)
+  {"path" : "user" ,loadChildren : () => import('./user/user.module').then(m => m.UserModule)
   },
 
   {
-    path: "", redirectTo: "users", pathMatch: "full"
+    path: "", redirectTo: "user", pathMatch: "full"
   }
 
 ];

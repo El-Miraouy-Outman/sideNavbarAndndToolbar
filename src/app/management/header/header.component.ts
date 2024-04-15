@@ -39,13 +39,13 @@ export class HeaderComponent {
           console.log("Logout methode response :")
           this.localStorageService.removeToken();
           this.localStorageService.removeUser();
-          this.router.navigateByUrl("/user/login")
+          this.router.navigate(["/user/login"])
         },
         error: () =>{
           console.log("Logout methode error :")
           this.localStorageService.removeToken();
           this.localStorageService.removeUser();
-          this.router.navigateByUrl("/user/login")
+          this.router.navigate(["/user/login"])
         }
       }
     );

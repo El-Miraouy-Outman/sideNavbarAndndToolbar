@@ -10,6 +10,8 @@ import {NavigationExtras, Router} from "@angular/router";
 import {statusTicket} from "../../models/status-ticket";
 import {StylesService} from "../../services/stylesService";
 import {MatSort} from "@angular/material/sort";
+import {UserService} from "../../services/user.service";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-ticket',
@@ -33,6 +35,7 @@ export class TicketComponent implements OnInit,AfterViewInit   {
   statusTicket =statusTicket;
   @ViewChild(MatSort) sort!: MatSort;
 
+
   //,'updateUserName','updateDate','closureDate'
   displayColumns =['id','customerName', 'subject','status','priority','creationDate','action'];
   constructor(private fb :FormBuilder,
@@ -49,6 +52,7 @@ export class TicketComponent implements OnInit,AfterViewInit   {
   }
   ngOnInit(): void {
     this.getAllTickets();
+
   }
 
      getAllTickets(){
@@ -159,4 +163,5 @@ export class TicketComponent implements OnInit,AfterViewInit   {
   getColors(status:string):string {
    return this.stylesService.statusColors(status);
   }
+
 }

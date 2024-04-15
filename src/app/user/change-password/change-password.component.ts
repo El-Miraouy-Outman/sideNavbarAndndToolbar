@@ -59,9 +59,9 @@ export class ChangePasswordComponent {
     this.form.markAllAsTouched();
     if(this.form.valid){
       if(this.form.value.newPassWord === this.form.value.confirmNewPassWord){
-        this.user.email_=this.form.value.email || '';
-        this.user.passWord_=this.form.value.oldPassWord || '';
-        this.user.newPassWord_=this.form.value.newPassWord || '';
+        this.user.email=this.form.value.email || '';
+        this.user.passWord=this.form.value.oldPassWord || '';
+        this.user.newPassWord=this.form.value.newPassWord || '';
         this.changePassWord();
       }
       else {

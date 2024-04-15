@@ -58,7 +58,7 @@ export class ForgetPasswordComponent {
 
     if(this.formStepOne.valid) {
       console.log("est valid  : ---> ")
-      this.user.email_ = this.formStepOne.value.email || ''; // Utiliser l'opérateur de coalescence nulle
+      this.user.email = this.formStepOne.value.email || ''; // Utiliser l'opérateur de coalescence nulle
       this.sendUuidToUser(this.user);
     }
     console.log('user information :', this.user);
@@ -67,7 +67,7 @@ export class ForgetPasswordComponent {
     this.formStepTo.markAllAsTouched();
     if(this.formStepTree.valid){
       if(this.formStepTree.value.passWord === this.formStepTree.value.confirmPassWord){
-        this.user.passWord_=this.formStepTree.value.passWord || '';
+        this.user.passWord=this.formStepTree.value.passWord || '';
         this.changePassWord();
       }
       else {
@@ -106,7 +106,7 @@ export class ForgetPasswordComponent {
 
     this.formStepTo.markAllAsTouched();
     if(this.formStepTo.valid){
-      this.user.uuid_= this.formStepTo.value.uuid || '';
+      this.user.uuid= this.formStepTo.value.uuid || '';
       this.confirmedEmail(this.user);
     }
   }
